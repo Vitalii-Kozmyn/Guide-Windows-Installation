@@ -1,0 +1,389 @@
+li {
+    list-style: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0d0d0d;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-image: url('../images/win-icon.png');
+    background-position: 90% 90%;
+    background-repeat: no-repeat;
+    background-size: 400px;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    background-opacity: 0.05;
+}
+
+:root {
+    --win11-blue: #0078d4;
+    --win11-light-blue: #4cc2ff;
+    --win11-dark-blue: #005a9e;
+    --win11-gray: #f0f0f0;
+    --win11-dark-gray: #2c2c2c;
+    --win11-black: #000000;
+    --win11-accent: #60cdff;
+    --win11-transparent: rgba(255, 255, 255, 0.1);
+    --win11-shadow: rgba(0, 0, 0, 0.2);
+    --mica-effect: rgba(252, 252, 252, 0.05);
+    --glow-color: rgb(173, 216, 230);
+    --glow-spread-color: rgba(144, 202, 249, 0.8);
+    --enhanced-glow-color: rgb(202, 228, 255);
+    --btn-color: rgb(61, 106, 164);
+}
+
+/*........................................Навігація........................................*/
+.navbar {
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    backdrop-filter: blur(10px);
+    background: rgba(13, 13, 13, 0.7);
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.nav__list {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 40px;
+    margin: 0;
+    padding-left: 0;
+}
+
+.nav__item-btn {
+    border: 0.25em solid var(--glow-color);
+    padding: 1em 3em;
+    color: var(--glow-color);
+    font-size: 15px;
+    font-weight: bold;
+    background-color: var(--btn-color);
+    border-radius: 1em;
+    outline: none;
+    box-shadow: 0 0 1em 0.25em var(--btn-color),
+        0 0 4em 1em var(--glow-spread-color),
+        inset 0 0 0.75em 0.25em var(--glow-color);
+    text-shadow: 0 0 0.5em var(--glow-color);
+    position: relative;
+    transition: all 0.3s;
+}
+
+.nav__item-btn::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 120%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--glow-spread-color);
+    filter: blur(2em);
+    opacity: 0;
+    transform: perspective(1.5em) rotateX(35deg) scale(1, 0.6);
+    animation: fadeInGlow 1s ease-in forwards;
+}
+
+@keyframes fadeInGlow {
+    0% {
+        opacity: 0;
+        transform: perspective(1.5em) rotateX(35deg) scale(0.8, 0.4);
+    }
+    100% {
+        opacity: 0.7;
+        transform: perspective(1.5em) rotateX(35deg) scale(1, 0.6);
+    }
+}
+
+.nav__item-btn:hover {
+    color: var(--btn-color);
+    background-color: var(--glow-color);
+    box-shadow: 0 0 1em 0.25em var(--glow-color),
+        0 0 4em 2em var(--glow-spread-color),
+        inset 0 0 0.75em 0.25em var(--glow-color);
+}
+
+.nav__item-btn:active{
+    box-shadow: 0 0 0.6em 0.25em var(--glow-color),
+        0 0 2.5em 2em var(--glow-spread-color),
+        inset 0 0 0.5em 0.25em var(--glow-color);
+}
+/*..........................................................................................*/
+
+/*..........................................Титулка.........................................*/
+.hero {
+    padding-top: 100px;
+    display: flex;
+    justify-content: center;
+}
+
+.hero__title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    background: rgba(13, 13, 13, 0.5);
+    backdrop-filter: blur(20px);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hero__title__blcText {
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1.5s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+.title__text {
+    color: #ffffff;
+    text-shadow: 0 2px 8px rgba(0, 120, 212, 0.8);
+}
+
+.title__text-h1 {
+    font-size: 120px;
+    margin: 0;
+    font-weight: 700;
+    position: relative;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.8s;
+    letter-spacing: -2px;
+    background: linear-gradient(90deg, #0078d4, #60cdff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.title__text-h1::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #0078d4 30%,
+        #60cdff 70%,
+        transparent
+    );
+    opacity: 0;
+    animation: lineExpand 1s ease-out forwards;
+    animation-delay: 1s;
+}
+
+.title__text-h2 {
+    font-size: 28px;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 0.6s;
+    margin-bottom: 16px;
+}
+
+.title__text-p {
+    font-size: 18px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 16px;
+    opacity: 0;
+    animation: slideUp 1s ease-out forwards;
+    animation-delay: 1.1s;
+    position: relative;
+}
+
+.title__text-p::after {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: var(--win11-accent);
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+    animation-delay: 1.3s;
+}
+
+.hero__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 180px;
+    height: 180px;
+    opacity: 0;
+    animation: logoAppear 1s ease-out forwards;
+    background: rgba(0, 120, 212, 0.08);
+    border-radius: 24px;
+    padding: 10px;
+    box-shadow: 0 8px 32px rgba(0, 120, 212, 0.2);
+    border: 1px solid rgba(0, 120, 212, 0.1);
+    transition: all 0.3s ease;
+}
+
+.hero__logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(0, 120, 212, 0.3);
+}
+
+.hero__logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+@keyframes logoAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) rotate(-5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes lineExpand {
+    0% {
+        opacity: 0;
+        width: 0;
+        left: 50%;
+    }
+    100% {
+        opacity: 1;
+        width: 100%;
+        left: 0;
+    }
+}
+
+/* Додаткові анімації та ефекти для Windows 11 стилю */
+@keyframes accentPulse {
+    0% {
+        box-shadow: 0 0 10px rgba(0, 120, 212, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 120, 212, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(0, 120, 212, 0.5);
+    }
+}
+
+/* Медіа-запити для адаптивності */
+@media (max-width: 992px) {
+    .nav__list {
+        gap: 20px;
+        padding: 5px 0;
+    }
+    
+    .nav__item-btn {
+        padding: 0.7em 1.8em;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav__list {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero__title {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .title__text-h1 {
+        font-size: 80px;
+    }
+    
+    .title__text-h2 {
+        font-size: 22px;
+    }
+    
+    .title__text-p {
+        font-size: 16px;
+    }
+    
+    .nav__item {
+        width: calc(50% - 15px);
+    }
+    
+    .nav__item-btn {
+        width: 100%;
+        padding: 0.7em 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .title__text-h1 {
+        font-size: 60px;
+    }
+    
+    .nav__item {
+        width: 100%;
+    }
+    
+    .nav__item-btn {
+        width: 100%;
+        padding: 0.6em 1.5em;
+    }
+}
+/*..........................................................................................*/
+
+/* Футер */
+footer {
+    margin-top: 80px;
+    padding: 20px 0;
+    background: rgba(13, 13, 13, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-text {
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+}

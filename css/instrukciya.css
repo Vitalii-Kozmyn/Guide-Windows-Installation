@@ -1,0 +1,275 @@
+/* Основні стилі для сторінки інструкцій */
+:root {
+    --win11-blue: #0078d4;
+    --win11-light-blue: #4cc2ff;
+    --win11-dark-blue: #005a9e;
+    --win11-gray: #f0f0f0;
+    --win11-dark-gray: #2c2c2c;
+    --win11-black: #000000;
+    --win11-accent: #60cdff;
+    --win11-transparent: rgba(255, 255, 255, 0.1);
+    --win11-shadow: rgba(0, 0, 0, 0.2);
+}
+
+.instrukciya-section {
+    padding: 40px 0;
+}
+
+.instrukciya-title {
+    text-align: center;
+    margin-bottom: 50px;
+    background: rgba(13, 13, 13, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    animation: fadeIn 1s ease-out forwards;
+}
+
+.instrukciya-title h1 {
+    font-size: 48px;
+    color: #ffffff;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, var(--win11-blue), var(--win11-light-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 2px 8px rgba(0, 120, 212, 0.3);
+}
+
+.instrukciya-title p {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Стилі для слайдера */
+.slider-container {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    overflow: hidden;
+    background: rgba(13, 13, 13, 0.85);
+    backdrop-filter: blur(15px);
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(96, 205, 255, 0.1);
+    padding: 30px;
+}
+
+.slider-wrapper {
+    display: flex;
+    transition: transform 0.5s ease;
+    height: 600px; /* Зменшуємо висоту, бо немає зображень */
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+.slide-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: rgba(44, 44, 44, 0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Стилі для слайдів тільки з текстом */
+.slide-content.text-only {
+    padding-top: 20px;
+}
+
+.slide-content.text-only .slide-info {
+    padding-top: 10px;
+}
+
+.slide-info {
+    padding: 25px;
+    flex-grow: 1;
+    overflow-y: auto;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.slide-info h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--win11-accent);
+    border-bottom: 1px solid rgba(96, 205, 255, 0.3);
+    padding-bottom: 10px;
+}
+
+.slide-info p {
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Стилі для списків налаштувань */
+.config-list {
+    margin-left: 0;
+    padding-left: 20px;
+}
+
+.config-list li {
+    margin-bottom: 10px;
+    position: relative;
+    list-style-type: none;
+    padding-left: 25px;
+}
+
+.config-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    background-color: var(--win11-blue);
+    border-radius: 50%;
+}
+
+/* Кнопки навігації слайдера */
+.slider-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.prev-slide, .next-slide {
+    background: var(--win11-blue);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.prev-slide:hover, .next-slide:hover {
+    background: var(--win11-light-blue);
+    transform: scale(1.1);
+}
+
+.prev-slide:active, .next-slide:active {
+    transform: scale(0.95);
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--win11-blue);
+    transform: scale(1.2);
+}
+
+/* Анімації */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стилі для скролбара */
+.slide-info::-webkit-scrollbar {
+    width: 8px;
+}
+
+.slide-info::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.slide-info::-webkit-scrollbar-thumb {
+    background: var(--win11-blue);
+    border-radius: 4px;
+}
+
+.slide-info::-webkit-scrollbar-thumb:hover {
+    background: var(--win11-light-blue);
+}
+
+/* Адаптивність */
+@media (min-width: 992px) {
+    .slide-content {
+        flex-direction: column;
+        height: 500px;
+    }
+    .slide-info {
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .instrukciya-title h1 {
+        font-size: 36px;
+    }
+    .instrukciya-title p {
+        font-size: 16px;
+    }
+    .slider-wrapper {
+        height: 600px;
+    }
+    .slide-content {
+        height: 100%;
+    }
+    .slide-info h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 576px) {
+    .instrukciya-title h1 {
+        font-size: 28px;
+    }
+    .slider-wrapper {
+        height: 650px;
+    }
+    .slide-info {
+        padding: 20px;
+    }
+    .slide-info h2 {
+        font-size: 22px;
+    }
+    .slide-info p, .slide-info li {
+        font-size: 14px;
+    }
+} 
