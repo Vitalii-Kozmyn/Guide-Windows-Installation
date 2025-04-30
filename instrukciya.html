@@ -5,13 +5,207 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Інструкція з налаштування Windows 11 після встановлення">
     <meta name="keywords" content="Windows 11, налаштування Windows, налаштування після встановлення, персоналізація Windows">
-    <title>Інструкція з налаштування Windows 11</title>
+    <title>Інструкція з налаштування Windows 11 - Покращена версія</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="stylesheet" href="./css/instrukciya.css">
     <link rel="icon" href="./images/win-icon.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.5/dist/cdn.min.js" defer></script>
+    <style>
+        :root {
+            --primary-color: #0078d7;
+            --secondary-color: #005a9e;
+            --dark-bg: #000000;
+            --light-text: #f0f0f0;
+            --card-bg: rgba(30, 30, 30, 0.8);
+            --highlight: #4cc2ff;
+        }
+        
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            color: var(--light-text);
+            line-height: 1.6;
+        }
+        
+        .header-gradient {
+            background: linear-gradient(135deg, #0078d7 0%, #005a9e 100%);
+        }
+        
+        .win-card {
+            position: relative;
+            background-color: rgba(13, 13, 13, 0.7);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .win-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 20px rgba(0, 0, 0, 0.4);
+        }
+        
+        .step-number {
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .highlight-text {
+            color: var(--highlight);
+            font-weight: 500;
+        }
+        
+        .nav-pill {
+            background-color: black;
+            border: 1px solid var(--primary-color);
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .nav-pill:hover, .nav-pill.active {
+            background-color: var(--primary-color);
+        }
+        
+        .cmd-block {
+            background-color: #0c0c0c;
+            border-left: 4px solid var(--primary-color);
+            font-family: Consolas, monospace;
+            padding: 12px;
+            overflow-x: auto;
+        }
+        
+        .tip-box {
+            background-color: rgba(0, 120, 215, 0.1);
+            border-left: 4px solid var(--highlight);
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background-color: rgba(255, 76, 76, 0.1);
+            border-left: 4px solid #ff4c4c;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+        
+        .shortcut-key {
+            background-color: #333;
+            color: white;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: Consolas, monospace;
+            margin: 0 2px;
+        }
+        
+        .app-icon {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+        
+        .chevron-path {
+            color: var(--light-text);
+            padding: 0 4px;
+        }
+        
+        /* Styles for image gallery */
+        .gallery-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .gallery-img {
+            transition: transform 0.5s ease;
+            border-radius: 8px;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .img-caption {
+            position: relative;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            padding: 8px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        /* Змінюємо стиль для table-of-contents, щоб він теж мав суцільний фон */
+        .table-of-contents {
+            position: sticky;
+            top: 20px;
+            background-color: #0c0c0c; /* Суцільний темний фон */
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 8px 15px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            border-left-color: var(--highlight);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Program recommendations styling */
+        .program-card {
+            background-color: rgba(40, 40, 40, 0.7);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .program-card:hover {
+            transform: scale(1.02);
+        }
+        
+        @media print {
+            .win-card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+                margin-bottom: 30px;
+            }
+            
+            .table-of-contents {
+                display: none;
+            }
+            
+            body {
+                background-color: white;
+                color: black;
+            }
+            
+            .win-card {
+                background-color: black;
+                border: 1px solid #ddd;
+                box-shadow: none;
+            }
+            
+            .header-gradient {
+                background: #0078d7;
+                color: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+    </style>
 </head>
-<body>
+<body class="min-h-screen">
     <header>
         <div class="container">
             <nav class="navbar">
@@ -32,204 +226,1008 @@
             </nav>
         </div>
     </header>
-    <main>
-        <section class="instrukciya-section">
-            <div class="container">
-                <div class="instrukciya-title">
-                    <h1>Інструкція з налаштування Windows 11</h1>
-                    <p>Покрокова інструкція з налаштування Windows 11 після першого включення комп'ютера</p>
+
+    <div class="container mx-auto px-4 py-8">
+        <div class="win-card mb-8 p-6">
+            <h1 class="text-4xl font-bold text-center">Інструкція з налаштування Windows 11</h1>
+            <p class="text-xl text-center mt-2">Покрокова інструкція з налаштування Windows 11 після першого включення комп'ютера</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Table of Contents - Stays fixed when scrolling on desktop -->
+            <div class="md:w-1/4 order-2 md:order-1">
+                <div class="table-of-contents bg-gray-900 p-4 rounded-lg shadow-lg">
+                    <h2 class="text-xl font-bold mb-4 text-white border-b pb-2">Зміст</h2>
+                    <nav class="toc-navigation">
+                        <a href="#step1" class="toc-link">1. Встановлення драйверів</a>
+                        <a href="#step2" class="toc-link">2. Оновлення системи</a>
+                        <a href="#step3" class="toc-link">3. Персоналізація інтерфейсу</a>
+                        <a href="#step4" class="toc-link">4. Налаштування безпеки</a>
+                        <a href="#step5" class="toc-link">5. Встановлення програм</a>
+                        <a href="#step6" class="toc-link">6. Налаштування OneDrive</a>
+                        <a href="#step7" class="toc-link">7. Оптимізація системи</a>
+                        <a href="#step8" class="toc-link">8. Налаштування браузера</a>
+                        <a href="#step9" class="toc-link">9. Резервне копіювання</a>
+                        <a href="#step10" class="toc-link">10. Периферійні пристрої</a>
+                        <a href="#recommended" class="toc-link">Рекомендовані програми</a>
+                    </nav>
                 </div>
-                
-                <div class="slider-container">
-                    <div class="slider-wrapper">
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 1: Встановлення драйверів</h2>
-                                    <p>Після першого запуску Windows 11 система автоматично встановлює необхідні драйвери.</p>
-                                    <ul class="config-list">
-                                        <li>Більшість драйверів пристроїв буде встановлено автоматично через Windows Update</li>
-                                        <li>Перевірте наявність драйверів: Пуск → Налаштування → Система → Про систему → Диспетчер пристроїв</li>
-                                        <li>Якщо в Диспетчері пристроїв є елементи з жовтими знаками оклику, ці пристрої потребують ручного встановлення драйверів</li>
-                                        <li>Для ручного оновлення драйверів відвідайте веб-сайт виробника вашого комп'ютера або пристрою</li>
-                                        <li>Периферійні пристрої (принтери, сканери, тощо) можуть потребувати встановлення драйверів з компакт-диску або веб-сайту виробника</li>
-                                    </ul>
-                                </div>
-                            </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="md:w-3/4 order-1 md:order-2">
+                <!-- Introduction -->
+                <div class="win-card mb-8 p-6">
+                    <h2 class="text-2xl font-bold mb-4">Вступ</h2>
+                    <p class="mb-4">
+                        Windows 11 - це нова операційна система від Microsoft, яка принесла оновлений дизайн, нові функції та поліпшену продуктивність.
+                        Ця інструкція допоможе вам налаштувати вашу нову систему Windows 11 оптимальним чином, забезпечивши максимальну
+                        продуктивність, безпеку та зручність використання.
+                    </p>
+                    <p>
+                        Дотримуючись цих кроків, ви зможете швидко та ефективно налаштувати вашу систему Windows 11 та адаптувати її до ваших потреб,
+                        незалежно від того, чи ви використовуєте комп'ютер для роботи, навчання або розваг.
+                    </p>
+                </div>
+
+                <!-- Step 1: Drivers -->
+                <div id="step1" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">1</div>
+                        <h2 class="text-2xl font-bold">Встановлення драйверів</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Після першого запуску Windows 11 система автоматично встановлює необхідні драйвери. Однак деякі пристрої можуть потребувати ручного встановлення.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Основні кроки:</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>Більшість драйверів пристроїв буде встановлено автоматично через Windows Update</li>
+                                <li>
+                                    Перевірте наявність драйверів через Диспетчер пристроїв:
+                                    <div class="flex items-center text-gray-300 my-1">
+                                        <span class="shortcut-key">Win</span> 
+                                        <span class="chevron-path">→</span>
+                                        <span>Налаштування</span>
+                                        <span class="chevron-path">→</span>
+                                        <span>Система</span>
+                                        <span class="chevron-path">→</span>
+                                        <span>Про систему</span>
+                                        <span class="chevron-path">→</span>
+                                        <span>Диспетчер пристроїв</span>
+                                    </div>
+                                </li>
+                                <li>Елементи з жовтими знаками оклику потребують ручного встановлення драйверів</li>
+                                <li>Для отримання драйверів відвідайте офіційний веб-сайт виробника вашого комп'ютера або пристрою</li>
+                                <li>Периферійні пристрої (принтери, сканери) часто потребують встановлення власних драйверів</li>
+                            </ul>
                         </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 2: Оновлення системи</h2>
-                                    <p>Перевірте наявність найновіших оновлень для вашої системи Windows 11.</p>
-                                    <ul class="config-list">
-                                        <li>Відкрийте Налаштування: натисніть Win + I або Пуск → Налаштування</li>
-                                        <li>Перейдіть до розділу Windows Update у лівому меню</li>
-                                        <li>Натисніть кнопку "Перевірити наявність оновлень"</li>
-                                        <li>Встановіть всі доступні оновлення, що підвищить продуктивність та безпеку системи</li>
-                                        <li>Після встановлення оновлень може знадобитися перезавантаження комп'ютера</li>
-                                        <li>Налаштуйте автоматичне оновлення: Windows Update → Додаткові опції → Розширені опції</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 3: Персоналізація інтерфейсу</h2>
-                                    <p>Налаштуйте зовнішній вигляд системи Windows 11 за вашими вподобаннями.</p>
-                                    <ul class="config-list">
-                                        <li>Відкрийте Налаштування: Win + I або Пуск → Налаштування</li>
-                                        <li>Перейдіть до розділу "Персоналізація" у лівому меню</li>
-                                        <li>Для зміни фону робочого столу виберіть підрозділ "Фон" та оберіть бажане зображення</li>
-                                        <li>Для зміни кольорової схеми виберіть підрозділ "Кольори" та оберіть основний колір, режим (світлий/темний)</li>
-                                        <li>Для налаштування меню Пуск: Персоналізація → Пуск → увімкніть або вимкніть функції відповідно до ваших уподобань</li>
-                                        <li>Для налаштування панелі завдань: Персоналізація → Панель завдань → оберіть положення та інші опції</li>
-                                        <li>Для налаштування теми: Персоналізація → Теми → виберіть готову тему або створіть власну</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 4: Налаштування безпеки</h2>
-                                    <p>Переконайтеся, що ваша система надійно захищена від різних загроз.</p>
-                                    <ul class="config-list">
-                                        <li>Відкрийте Налаштування: Win + I або Пуск → Налаштування</li>
-                                        <li>Перейдіть до розділу "Конфіденційність і безпека" в лівому меню</li>
-                                        <li>Перевірте статус Windows Security: Конфіденційність і безпека → Windows Security</li>
-                                        <li>Натисніть "Відкрити Windows Security" для налаштування захисту від вірусів, брандмауера та інших параметрів безпеки</li>
-                                        <li>Увімкніть усі рекомендовані функції безпеки: захист у реальному часі, захист хмари, тощо</li>
-                                        <li>Налаштуйте параметри Windows Hello для безпечного входу: Облікові записи → Параметри входу</li>
-                                        <li>Перевірте параметри шифрування диску BitLocker: Конфіденційність і безпека → Шифрування пристрою</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 5: Встановлення програм</h2>
-                                    <p>Завантажте та встановіть необхідні програми для повсякденного використання.</p>
-                                    <ul class="config-list">
-                                        <li>Відкрийте Microsoft Store: знайдіть його у меню Пуск або на панелі завдань</li>
-                                        <li>В Microsoft Store шукайте та встановлюйте потрібні програми: браузери, офісні пакети, програми для спілкування, тощо</li>
-                                        <li>Для встановлення програм, яких немає в Microsoft Store, завантажте їх з офіційних веб-сайтів розробників</li>
-                                        <li>Рекомендовані програми для встановлення: браузер (Google Chrome, Mozilla Firefox, Microsoft Edge), офісний пакет (Microsoft Office, LibreOffice), антивірус, архіватор (7-Zip, WinRAR)</li>
-                                        <li>Після встановлення, закріпіть найчастіше використовувані програми на панелі завдань або в меню Пуск для швидкого доступу</li>
-                                        <li>Регулярно оновлюйте всі встановлені програми для підтримки безпеки та продуктивності</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 6: Налаштування OneDrive</h2>
-                                    <p>Настройте хмарне сховище для резервного копіювання та синхронізації ваших файлів.</p>
-                                    <ul class="config-list">
-                                        <li>OneDrive вже встановлений у Windows 11 і зазвичай запускається автоматично при першому запуску комп'ютера</li>
-                                        <li>Знайдіть іконку OneDrive у системному треї і клацніть на ній правою кнопкою миші</li>
-                                        <li>Виберіть "Налаштування" для конфігурації параметрів синхронізації</li>
-                                        <li>На вкладці "Облікові записи" переконайтеся, що ви увійшли в Microsoft-акаунт</li>
-                                        <li>На вкладці "Резервне копіювання" виберіть папки для автоматичного резервного копіювання (Робочий стіл, Документи, Зображення)</li>
-                                        <li>На вкладці "Мережа" можна налаштувати обмеження швидкості передачі даних, якщо потрібно</li>
-                                        <li>Всі синхронізовані файли будуть доступні на інших пристроях, де ви використовуєте той самий Microsoft-акаунт</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 7: Оптимізація системи</h2>
-                                    <p>Налаштуйте систему для забезпечення максимальної продуктивності.</p>
-                                    <ul class="config-list">
-                                        <li>Налаштуйте параметри живлення: Налаштування → Система → Живлення і акумулятор → Режим живлення</li>
-                                        <li>Для максимальної продуктивності виберіть режим "Найкраща продуктивність" (на ноутбуках це зменшить час роботи від батареї)</li>
-                                        <li>Перевірте програми автозапуску: Налаштування → Програми → Автозапуск → вимкніть непотрібні програми</li>
-                                        <li>Використовуйте Очищення диска: клацніть правою кнопкою миші на диску C: → Властивості → Очищення диска</li>
-                                        <li>Налаштуйте віртуальну пам'ять: Пошук → "Перегляд додаткових відомостей про систему" → Додаткові параметри системи → вкладка "Додатково" → Продуктивність → Параметри → вкладка "Додатково" → Віртуальна пам'ять → Змінити</li>
-                                        <li>Дефрагментація диска (для HDD): Пошук → "Дефрагментація і оптимізація дисків"</li>
-                                        <li>Оптимізуйте візуальні ефекти: Параметри системи → Додатково → Продуктивність → виберіть "Налаштувати для найкращої продуктивності"</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 8: Налаштування браузера</h2>
-                                    <p>Налаштуйте веб-браузер за вашими потребами та вподобаннями.</p>
-                                    <ul class="config-list">
-                                        <li>Виберіть основний браузер: Налаштування → Програми → Програми за замовчуванням → знайдіть браузер і встановіть за замовчуванням</li>
-                                        <li>Налаштуйте Microsoft Edge (або інший встановлений браузер): відкрийте браузер і перейдіть до налаштувань</li>
-                                        <li>Налаштуйте домашню сторінку: зазвичай у налаштуваннях в розділі "Запуск"</li>
-                                        <li>Імпортуйте закладки з інших браузерів (якщо потрібно): у налаштуваннях знайдіть пункт "Імпорт закладок"</li>
-                                        <li>Встановіть розширення для покращення функціональності: блокувальники реклами, перекладачі, тощо</li>
-                                        <li>Налаштуйте конфіденційність: керуйте файлами cookie, історією переглядів та іншими параметрами в налаштуваннях конфіденційності</li>
-                                        <li>Синхронізуйте налаштування браузера з вашим обліковим записом, якщо ця функція доступна</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 9: Налаштування резервного копіювання</h2>
-                                    <p>Створіть систему резервного копіювання для захисту ваших даних.</p>
-                                    <ul class="config-list">
-                                        <li>Відкрийте Налаштування: Win + I або Пуск → Налаштування</li>
-                                        <li>Перейдіть до розділу "Облікові записи" → "Параметри резервного копіювання"</li>
-                                        <li>Увімкніть функцію "Пам'ять налаштувань", щоб синхронізувати налаштування Windows з вашим Microsoft-акаунтом</li>
-                                        <li>Для більш повного резервного копіювання використовуйте "Історію файлів": Пошук → "Історія файлів"</li>
-                                        <li>Налаштуйте зовнішній диск для резервного копіювання даних через Історію файлів</li>
-                                        <li>Розгляньте можливість створення точки відновлення системи: Пошук → "Створити точку відновлення" → виберіть диск → Створити</li>
-                                        <li>Для повного резервного копіювання системи використовуйте "Архівування та відновлення (Windows 7)": Панель керування → Система та безпека → Архівування та відновлення (Windows 7)</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content text-only">
-                                <div class="slide-info">
-                                    <h2>Крок 10: Налаштування периферійних пристроїв</h2>
-                                    <p>Налаштуйте підключені пристрої для оптимальної роботи.</p>
-                                    <ul class="config-list">
-                                        <li>Відкрийте Налаштування: Win + I або Пуск → Налаштування</li>
-                                        <li>Перейдіть до розділу "Bluetooth і пристрої" у лівому меню</li>
-                                        <li>Для налаштування миші: Bluetooth і пристрої → Миша → налаштуйте швидкість курсора, прокрутку, тощо</li>
-                                        <li>Для налаштування клавіатури: Bluetooth і пристрої → Клавіатура → швидкість повторення, мови введення, тощо</li>
-                                        <li>Для налаштування принтера: Bluetooth і пристрої → Принтери і сканери → виберіть принтер для налаштування</li>
-                                        <li>Для налаштування Bluetooth-пристроїв: Bluetooth і пристрої → увімкніть Bluetooth і натисніть "Додати пристрій"</li>
-                                        <li>Для налаштування дисплеїв: Система → Дисплей → налаштуйте роздільну здатність, масштабування, тощо</li>
-                                        <li>Перевірте правильність роботи всіх пристроїв після налаштування</li>
-                                    </ul>
-                                </div>
+                        <div>
+                            <div class="gallery-container">
+                                <img src="https://www.thewindowsclub.com/wp-content/uploads/2023/03/fix-yellow-exclamation-point-device-manager-windows-11.png" alt="Диспетчер пристроїв з жовтими знаками оклику" class="gallery-img rounded shadow-lg">
+                                <div class="img-caption">Диспетчер пристроїв з позначеними пристроями, які потребують драйверів</div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="slider-controls">
-                        <button class="prev-slide">←</button>
-                        <div class="slider-dots"></div>
-                        <button class="next-slide">→</button>
+                    <div class="tip-box mt-4">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Драйвери, завантажені з офіційного сайту виробника, зазвичай містять більше функцій та оптимізацій, ніж драйвери, встановлені Windows автоматично. Рекомендуємо завжди перевіряти наявність оновлень на сайті виробника.</p>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Ручне оновлення драйвера:</h3>
+                        <ol class="list-decimal pl-5 space-y-2">
+                            <li>Відкрийте Диспетчер пристроїв</li>
+                            <li>Знайдіть пристрій з жовтим знаком оклику</li>
+                            <li>Клацніть правою кнопкою миші та виберіть "Оновити драйвер"</li>
+                            <li>Виберіть "Пошук драйверів на цьому комп'ютері"</li>
+                            <li>Вкажіть шлях до папки з завантаженим драйвером</li>
+                            <li>Дотримуйтесь інструкцій на екрані для завершення встановлення</li>
+                        </ol>
                     </div>
                 </div>
+
+                <!-- Step 2: System Updates -->
+                <div id="step2" class="win-card mb-8 p-6 slide_dark">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">2</div>
+                        <h2 class="text-2xl font-bold">Оновлення системи</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Регулярне оновлення Windows 11 забезпечує найвищий рівень безпеки, стабільності та продуктивності. Критично важливо встановити всі доступні оновлення одразу після встановлення системи.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Як оновити систему:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>
+                                    Відкрийте Налаштування:
+                                    <div class="flex items-center text-gray-300 my-1">
+                                        <span class="shortcut-key">Win</span> + <span class="shortcut-key">I</span>
+                                        <span class="ml-2">або</span>
+                                    </div>
+                                    <div class="flex items-center text-gray-300 my-1">
+                                        <span>Пуск</span>
+                                        <span class="chevron-path">→</span>
+                                        <span>Налаштування</span>
+                                    </div>
+                                </li>
+                                <li>Перейдіть до розділу "Windows Update" у лівому меню</li>
+                                <li>Натисніть кнопку "Перевірити наявність оновлень"</li>
+                                <li>Завантажте та встановіть всі доступні оновлення</li>
+                                <li>При необхідності перезавантажте комп'ютер</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <div class="gallery-container">
+                                <img src="https://its.ucsc.edu/security/images/windows-11-update-menu.jpeg" alt="Меню оновлень Windows 11" class="gallery-img rounded shadow-lg">
+                                <div class="img-caption">Меню Windows Update для перевірки та встановлення оновлень</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Налаштування автоматичних оновлень:</h3>
+                        <ol class="list-decimal pl-5 space-y-2">
+                            <li>В меню Windows Update натисніть "Додаткові опції"</li>
+                            <li>В розділі "Параметри оновлення" можна налаштувати автоматичне завантаження та встановлення оновлень</li>
+                            <li>Рекомендуємо встановити "Активні години", щоб система не перезавантажувалась автоматично під час вашої роботи</li>
+                            <li>Можна також налаштувати параметри оптимізації доставки, щоб зменшити використання інтернет-трафіку</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="warning-box mt-4">
+                        <h4 class="font-bold">Важливо:</h4>
+                        <p>Не відкладайте встановлення оновлень безпеки. Вони захищають ваш комп'ютер від нових вразливостей та загроз. Оновлення функцій можна відкласти, але оновлення безпеки слід встановлювати негайно.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3: Interface Personalization -->
+                <div id="step3" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">3</div>
+                        <h2 class="text-2xl font-bold">Персоналізація інтерфейсу</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Windows 11 пропонує широкі можливості для персоналізації інтерфейсу відповідно до ваших уподобань. Ви можете змінити фон робочого столу, кольорову схему, теми та інші візуальні елементи.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Основні налаштування:</h3>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li>
+                                    Відкрийте Налаштування:
+                                    <div class="flex items-center text-gray-300 my-1">
+                                        <span class="shortcut-key">Win</span> + <span class="shortcut-key">I</span>
+                                    </div>
+                                </li>
+                                <li>Перейдіть до розділу "Персоналізація" у лівому меню</li>
+                                <li>Для зміни фону виберіть підрозділ "Фон" та оберіть зображення, колір або слайд-шоу</li>
+                                <li>Для зміни кольорової схеми виберіть "Кольори" та налаштуйте акцентний колір і режим (світлий/темний)</li>
+                                <li>Для налаштування меню Пуск: Персоналізація → Пуск</li>
+                                <li>Для налаштування панелі завдань: Персоналізація → Панель завдань</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div class="gallery-container">
+                                <img src="https://cdn.mos.cms.futurecdn.net/zb8LL8hu5EbNEaMnrmKjAJ.png" alt="Персоналізація Windows 11" class="gallery-img rounded shadow-lg">
+                                <div class="img-caption">Меню персоналізації Windows 11 з різними варіантами налаштувань</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Розширені налаштування персоналізації:</h3>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування меню Пуск:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>Можна вибрати розмір меню Пуск</li>
+                            <li>Налаштувати відображення недавно встановлених та найбільш використовуваних програм</li>
+                            <li>Показувати або приховувати певні папки у меню Пуск</li>
+                        </ul>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування панелі завдань:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>Вирівнювання панелі завдань (по центру або ліворуч)</li>
+                            <li>Вибір іконок, які відображаються на панелі завдань</li>
+                            <li>Налаштування автоматичного приховування панелі завдань</li>
+                        </ul>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування теми:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300">
+                            <li>Виберіть готову тему або створіть власну</li>
+                            <li>Налаштуйте звуки системи, курсори миші та іконки в рамках теми</li>
+                            <li>Завантажте додаткові теми з Microsoft Store</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box mt-4">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Щоб швидко змінити тему між світлою та темною, використовуйте комбінацію клавіш <span class="shortcut-key">Win</span> + <span class="shortcut-key">Alt</span> + <span class="shortcut-key">T</span> або додайте відповідну кнопку в центрі сповіщень.</p>
+                    </div>
+                </div>
+
+                <!-- Step 4: Security Settings -->
+                <div id="step4" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">4</div>
+                        <h2 class="text-2xl font-bold">Налаштування безпеки</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Windows 11 має потужні вбудовані інструменти безпеки, які захищають ваш комп'ютер від вірусів, шкідливих програм та інших загроз. Правильне налаштування параметрів безпеки є критично важливим для захисту ваших даних.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Основні параметри безпеки:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>
+                                    Відкрийте Налаштування:
+                                    <div class="flex items-center text-gray-300 my-1">
+                                        <span class="shortcut-key">Win</span> + <span class="shortcut-key">I</span>
+                                    </div>
+                                </li>
+                                <li>Перейдіть до розділу "Конфіденційність і безпека" в лівому меню</li>
+                                <li>Виберіть "Windows Security" для перегляду стану захисту</li>
+                                <li>Натисніть "Відкрити Windows Security" для детальних налаштувань</li>
+                                <li>Перевірте та налаштуйте всі компоненти безпеки:</li>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-300 ml-5 mt-1">
+                                    <li>Захист від вірусів і загроз</li>
+                                    <li>Брандмауер і захист мережі</li>
+                                    <li>Захист облікових записів</li>
+                                    <li>Контроль програм і браузера</li>
+                                    <li>Безпека пристрою</li>
+                                </ul>
+                            </ol>
+                        </div>
+                        <div>
+                            <div class="gallery-container">
+                                <img src="https://media.wired.com/photos/617303500b00dd3abcd9e48f/master/w_1600%2Cc_limit/Sec_01-security.jpg" alt="Параметри безпеки Windows 11" class="gallery-img rounded shadow-lg">
+                                <div class="img-caption">Центр безпеки Windows з різними модулями захисту</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Розширені налаштування безпеки:</h3>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування Windows Hello:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>Перейдіть до Налаштування → Облікові записи → Параметри входу</li>
+                            <li>Налаштуйте біометричний вхід (розпізнавання обличчя, відбиток пальця)</li>
+                            <li>Встановіть PIN-код для швидкого та безпечного входу</li>
+                        </ul>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Шифрування пристрою BitLocker:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>Перейдіть до Налаштування → Конфіденційність і безпека → Шифрування пристрою</li>
+                            <li>Увімкніть шифрування для захисту даних у випадку крадіжки пристрою</li>
+                            <li>Збережіть ключ відновлення у безпечному місці або в обліковому записі Microsoft</li>
+                        </ul>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Ізоляція ядра:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300">
+                            <li>Перейдіть до Windows Security → Безпека пристрою → Ізоляція ядра</li>
+                            <li>Увімкніть цей параметр для додаткового захисту ядра системи від шкідливих програм</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box mt-4">
+                        <h4 class="font-bold">Важливо:</h4>
+                        <p>Ніколи не вимикайте захист у реальному часі Windows Defender, якщо ви не використовуєте інше антивірусне програмне забезпечення. Сучасні кіберзагрози можуть швидко інфікувати незахищену систему.</p>
+                    </div>
+                </div>
+
+                <!-- Step 5: Installing Programs -->
+                <div id="step5" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">5</div>
+                        <h2 class="text-2xl font-bold">Встановлення програм</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Після налаштування системи та безпеки, час встановити програми, які ви будете використовувати у повсякденній роботі. 
+                        Windows 11 пропонує Microsoft Store для безпечного завантаження програм, але ви також можете встановлювати програми з інших джерел.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Встановлення через Microsoft Store:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Microsoft Store з меню Пуск або панелі завдань</li>
+                                <li>Використовуйте пошук для знаходження потрібних програм</li>
+                                <li>Натисніть "Отримати" або "Купити" для встановлення</li>
+                                <li>Програма буде автоматично завантажена та встановлена</li>
+                                <li>Знайдіть встановлену програму в меню Пуск</li>
+                            </ol>
+                            
+                            <h3 class="text-xl font-medium mt-6 mb-3 text-blue-300">Встановлення з інтернету:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Завантажте інсталятор програми з офіційного сайту розробника</li>
+                                <li>Запустіть завантажений файл (зазвичай .exe або .msi)</li>
+                                <li>Слідуйте інструкціям майстра встановлення</li>
+                                <li>Уважно читайте кожен крок, щоб уникнути встановлення небажаного програмного забезпечення</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <div class="warning-box mb-4">
+                                <h4 class="font-bold">Безпека при встановленні:</h4>
+                                <ul class="list-disc pl-5 mt-2">
+                                    <li>Завантажуйте програми лише з офіційних джерел</li>
+                                    <li>Завжди перевіряйте завантажені файли антивірусом</li>
+                                    <li>Будьте обережні з "безкоштовними" програмами, які можуть містити шкідливе ПЗ</li>
+                                    <li>Уважно читайте умови встановлення, щоб уникнути встановлення додаткових ПЗ</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="tip-box">
+                                <h4 class="font-bold">Відстеження встановлених програм:</h4>
+                                <p class="mt-2">Щоб переглянути список встановлених програм та видалити непотрібні:</p>
+                                <ol class="list-decimal pl-5 mt-2">
+                                    <li>Відкрийте Налаштування → Програми → Програми та функції</li>
+                                    <li>Тут ви побачите список усіх встановлених програм</li>
+                                    <li>Для видалення виберіть програму та натисніть "Видалити"</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Рекомендовані типи програм:</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Веб-браузери</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Microsoft Edge (встановлений)</li>
+                                    <li>Google Chrome</li>
+                                    <li>Mozilla Firefox</li>
+                                    <li>Opera</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Офісні пакети</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Microsoft 365</li>
+                                    <li>LibreOffice</li>
+                                    <li>WPS Office</li>
+                                    <li>Google Workspace (онлайн)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Медіа програвачі</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>VLC Media Player</li>
+                                    <li>PotPlayer</li>
+                                    <li>Windows Media Player</li>
+                                    <li>K-Lite Codec Pack</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Архіватори</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>7-Zip</li>
+                                    <li>WinRAR</li>
+                                    <li>WinZip</li>
+                                    <li>PeaZip</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Комунікація</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Microsoft Teams</li>
+                                    <li>Zoom</li>
+                                    <li>Skype</li>
+                                    <li>Discord</li>
+                                    <li>Telegram Desktop</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Графічні редактори</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>GIMP</li>
+                                    <li>Paint.NET</li>
+                                    <li>Adobe Photoshop</li>
+                                    <li>Inkscape</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: OneDrive Setup -->
+                <div id="step6" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">6</div>
+                        <h2 class="text-2xl font-bold">Налаштування OneDrive</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        OneDrive вбудований у Windows 11 і дозволяє зберігати ваші файли в хмарі, синхронізувати їх між пристроями та 
+                        створювати резервні копії важливих даних. Правильне налаштування OneDrive забезпечить збереження ваших файлів 
+                        у випадку пошкодження комп'ютера.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Початкове налаштування OneDrive:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Знайдіть іконку OneDrive в системному треї (зазвичай справа внизу екрану)</li>
+                                <li>Якщо ви ще не увійшли, введіть свій Microsoft-акаунт та пароль</li>
+                                <li>Виберіть папки, які бажаєте синхронізувати з хмарою</li>
+                                <li>OneDrive створить папку на вашому комп'ютері, де зберігатимуться синхронізовані файли</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Налаштування резервного копіювання:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Клацніть правою кнопкою миші по іконці OneDrive в системному треї</li>
+                                <li>Виберіть "Налаштування"</li>
+                                <li>Перейдіть на вкладку "Резервне копіювання"</li>
+                                <li>Виберіть папки для автоматичного резервного копіювання:</li>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-300 ml-5 mt-1">
+                                    <li>Робочий стіл</li>
+                                    <li>Документи</li>
+                                    <li>Зображення</li>
+                                </ul>
+                                <li>Натисніть "Почати резервне копіювання"</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Додаткові налаштування OneDrive:</h3>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування Files On-Demand:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>У налаштуваннях OneDrive перейдіть на вкладку "Параметри"</li>
+                            <li>Увімкніть функцію "Зберігати місце і завантажувати файли в міру необхідності"</li>
+                            <li>Це дозволить бачити всі файли у хмарі, але завантажувати їх лише при відкритті</li>
+                        </ul>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування пропускної здатності:</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>У налаштуваннях OneDrive перейдіть на вкладку "Мережа"</li>
+                            <li>Налаштуйте швидкість передачі даних для завантаження та вивантаження</li>
+                            <li>Можна вказати, щоб OneDrive використовував більше ресурсів, коли комп'ютер не використовується</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="tip-box mt-4">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Безкоштовний акаунт OneDrive надає 5 ГБ хмарного сховища. Якщо вам потрібно більше місця, розгляньте можливість підписки на Microsoft 365, яка включає 1 ТБ хмарного сховища на користувача, а також повний набір офісних програм.</p>
+                    </div>
+                </div>
+
+                <!-- Step 7: System Optimization -->
+                <div id="step7" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">7</div>
+                        <h2 class="text-2xl font-bold">Оптимізація системи</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Оптимізація системи Windows 11 допоможе вам отримати максимальну продуктивність та ефективність роботи. 
+                        Правильні налаштування дозволять прискорити роботу системи та зменшити споживання ресурсів.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Налаштування режиму живлення:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Система → Живлення і акумулятор</li>
+                                <li>Виберіть "Режим живлення"</li>
+                                <li>Для максимальної продуктивності виберіть "Найкраща продуктивність"</li>
+                                <li>Для ноутбуків: зверніть увагу, що цей режим зменшить час роботи від батареї</li>
+                            </ol>
+                            
+                            <h3 class="text-xl font-medium mt-6 mb-3 text-blue-300">Керування програмами автозапуску:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Програми → Автозапуск</li>
+                                <li>Вимкніть програми, які не потрібно запускати при старті Windows</li>
+                                <li>Залиште тільки справді необхідні програми для автозапуску</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Очищення диску:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Клацніть правою кнопкою миші на диску C:</li>
+                                <li>Виберіть "Властивості" → "Очищення диска"</li>
+                                <li>Виберіть усі типи файлів, які можна видалити</li>
+                                <li>Натисніть "Очистити системні файли" для додаткових опцій</li>
+                                <li>Виберіть додаткові файли для видалення (старі оновлення Windows, тимчасові файли, тощо)</li>
+                                <li>Натисніть "OK" для запуску процесу очищення</li>
+                            </ol>
+                            
+                            <div class="cmd-block mt-4 text-sm">
+                                <p># Для розширеного очищення диску можна використати командний рядок:</p>
+                                <p>cleanmgr /sageset:1</p>
+                                <p># Налаштуйте параметри, потім запустіть:</p>
+                                <p>cleanmgr /sagerun:1</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Розширена оптимізація:</h3>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Налаштування віртуальної пам'яті:</h4>
+                        <ol class="list-decimal pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>Натисніть Win + R, введіть "sysdm.cpl" і натисніть Enter</li>
+                            <li>Перейдіть на вкладку "Додатково"</li>
+                            <li>У розділі "Продуктивність" натисніть "Параметри"</li>
+                            <li>Перейдіть на вкладку "Додатково" і натисніть "Змінити" в розділі "Віртуальна пам'ять"</li>
+                            <li>Зніміть прапорець "Автоматично керувати об'ємом файлу підкачки"</li>
+                            <li>Встановіть "Розмір за вибором" і вкажіть початковий та максимальний розмір (зазвичай 1.5-2 рази більше ніж обсяг ОЗП)</li>
+                        </ol>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Оптимізація візуальних ефектів:</h4>
+                        <ol class="list-decimal pl-5 space-y-1 text-gray-300 mb-3">
+                            <li>Натисніть Win + R, введіть "sysdm.cpl" і натисніть Enter</li>
+                            <li>Перейдіть на вкладку "Додатково"</li>
+                            <li>У розділі "Продуктивність" натисніть "Параметри"</li>
+                            <li>Виберіть "Налаштувати для найкращої продуктивності" або вручну вимкніть непотрібні ефекти</li>
+                        </ol>
+                        
+                        <h4 class="font-medium text-gray-200 mt-3">Дефрагментація та оптимізація дисків:</h4>
+                        <ol class="list-decimal pl-5 space-y-1 text-gray-300">
+                            <li>Для HDD: натисніть Win та введіть "Дефрагментація і оптимізація дисків"</li>
+                            <li>Для SSD: використовуйте "Оптимізувати" замість дефрагментації</li>
+                            <li>Налаштуйте розклад автоматичної оптимізації</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="warning-box mt-4">
+                        <h4 class="font-bold">Важливо:</h4>
+                        <p>Не вимикайте системні служби Windows, якщо не розумієте їх призначення. Це може призвести до нестабільної роботи або пошкодження системи.</p>
+                    </div>
+                </div>
+
+                <!-- Step 8: Browser Setup -->
+                <div id="step8" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">8</div>
+                        <h2 class="text-2xl font-bold">Налаштування браузера</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Веб-браузер - це одна з найбільш часто використовуваних програм. Правильне налаштування браузера забезпечить зручність 
+                        використання, безпеку та швидкість роботи в інтернеті.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Вибір основного браузера:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Програми → Програми за замовчуванням</li>
+                                <li>Прокрутіть до розділу "Веб-браузер" або знайдіть браузер у списку програм</li>
+                                <li>Виберіть бажаний браузер та встановіть його програмою за замовчуванням</li>
+                                <li>Windows 11 постачається з Microsoft Edge, але ви можете встановити інші браузери:</li>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-300 ml-5 mt-1">
+                                    <li>Google Chrome</li>
+                                    <li>Mozilla Firefox</li>
+                                    <li>Opera</li>
+                                    <li>Brave</li>
+                                </ul>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Базові налаштування браузера:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Встановіть домашню сторінку: у налаштуваннях браузера знайдіть розділ "Запуск"</li>
+                                <li>Імпортуйте закладки з інших браузерів: розділ "Закладки" → "Імпорт закладок"</li>
+                                <li>Налаштуйте синхронізацію з акаунтом (Google, Microsoft, Mozilla)</li>
+                                <li>Керуйте збереженими паролями та формами автозаповнення</li>
+                                <li>Налаштуйте параметри конфіденційності та безпеки:</li>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-300 ml-5 mt-1">
+                                    <li>Налаштування файлів cookie</li>
+                                    <li>Блокування спливаючих вікон</li>
+                                    <li>Захист від фішингу та шкідливих сайтів</li>
+                                </ul>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Рекомендовані розширення для браузера:</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Блокувальники реклами</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>uBlock Origin</li>
+                                    <li>AdBlock Plus</li>
+                                    <li>AdGuard</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Менеджери паролів</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Bitwarden</li>
+                                    <li>LastPass</li>
+                                    <li>1Password</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Продуктивність</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Google Translate</li>
+                                    <li>Grammarly</li>
+                                    <li>Microsoft Editor</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Захист конфіденційності</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Privacy Badger</li>
+                                    <li>HTTPS Everywhere</li>
+                                    <li>DuckDuckGo Privacy Essentials</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Продуктивність</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Todoist</li>
+                                    <li>Evernote Web Clipper</li>
+                                    <li>OneNote Web Clipper</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="program-card p-3">
+                                <h4 class="font-bold text-blue-300">Покупки та знижки</h4>
+                                <ul class="list-disc pl-5 text-sm mt-1">
+                                    <li>Honey</li>
+                                    <li>Rakuten</li>
+                                    <li>Capital One Shopping</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-box mt-4">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Для безпечного зберігання паролів використовуйте менеджер паролів замість їх збереження безпосередньо в браузері. Це покращить безпеку ваших облікових записів.</p>
+                    </div>
+                </div>
+
+                <!-- Step 9: Backup Setup -->
+                <div id="step9" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">9</div>
+                        <h2 class="text-2xl font-bold">Налаштування резервного копіювання</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Налаштування системи резервного копіювання є критично важливим для захисту ваших даних від втрати через збої системи, 
+                        випадкове видалення або інші проблеми. Windows 11 пропонує декілька вбудованих інструментів для цього.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Резервне копіювання налаштувань:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Облікові записи → Параметри синхронізації Windows</li>
+                                <li>Увімкніть синхронізацію налаштувань з вашим обліковим записом Microsoft</li>
+                                <li>Виберіть, які саме налаштування хочете синхронізувати:</li>
+                                <ul class="list-disc pl-5 space-y-1 text-gray-300 ml-5 mt-1">
+                                    <li>Теми та налаштування персоналізації</li>
+                                    <li>Паролі</li>
+                                    <li>Налаштування мови</li>
+                                    <li>Параметри спеціальних можливостей</li>
+                                    <li>Інші параметри Windows</li>
+                                </ul>
+                            </ol>
+                            
+                            <h3 class="text-xl font-medium mt-6 mb-3 text-blue-300">Історія файлів:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Натисніть клавішу Win та введіть "Історія файлів"</li>
+                                <li>Підключіть зовнішній жорсткий диск або мережеве сховище</li>
+                                <li>Виберіть "Додати диск" та вкажіть місце для зберігання резервних копій</li>
+                                <li>Натисніть "Увімкнути" для запуску автоматичного резервного копіювання</li>
+                                <li>За замовчуванням копіюються документи, зображення, відео та інші важливі папки</li>
+                                <li>Для налаштування додаткових папок натисніть "Додати папку"</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Створення точок відновлення системи:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Натисніть клавішу Win та введіть "Створити точку відновлення"</li>
+                                <li>У відкритому вікні "Властивості системи" перейдіть на вкладку "Захист системи"</li>
+                                <li>Виберіть системний диск (зазвичай C:) та натисніть "Налаштувати"</li>
+                                <li>Увімкніть захист системи та встановіть обсяг дискового простору для точок відновлення</li>
+                                <li>Натисніть "Створити" для негайного створення точки відновлення</li>
+                                <li>Введіть опис точки відновлення та натисніть "Створити"</li>
+                            </ol>
+                            
+                            <h3 class="text-xl font-medium mt-6 mb-3 text-blue-300">Повне архівування системи (Образ системи):</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Натисніть клавішу Win та введіть "Панель керування"</li>
+                                <li>Перейдіть до Система та безпека → Архівування та відновлення (Windows 7)</li>
+                                <li>У лівій частині виберіть "Створення образу системи"</li>
+                                <li>Виберіть місце зберігання образу (зовнішній диск, мережеве сховище або DVD)</li>
+                                <li>Виберіть розділи для включення в резервну копію</li>
+                                <li>Натисніть "Далі" та "Почати архівування"</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box mt-4">
+                        <h4 class="font-bold">Важливо:</h4>
+                        <p>Дотримуйтесь правила 3-2-1 для резервного копіювання: зберігайте щонайменше 3 копії ваших даних, на 2 різних типах носіїв, з 1 копією, що зберігається поза приміщенням (наприклад, у хмарному сховищі).</p>
+                    </div>
+                    
+                    <div class="tip-box mt-4">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Для важливих даних налаштуйте автоматичне резервне копіювання за розкладом. Програми на зразок Macrium Reflect (безкоштовна версія) пропонують потужніші можливості резервного копіювання, ніж вбудовані інструменти Windows.</p>
+                    </div>
+                </div>
+
+                <!-- Step 10: Peripheral Device Setup -->
+                <div id="step10" class="win-card mb-8 p-6">
+                    <div class="flex items-start mb-4">
+                        <div class="step-number mr-4">10</div>
+                        <h2 class="text-2xl font-bold">Налаштування периферійних пристроїв</h2>
+                    </div>
+                    
+                    <p class="mb-4">
+                        Правильне налаштування периферійних пристроїв (миша, клавіатура, принтер, тощо) допоможе підвищити зручність 
+                        використання комп'ютера та оптимізувати робочий процес під ваші потреби.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Налаштування миші та тачпаду:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Bluetooth і пристрої → Миша</li>
+                                <li>Налаштуйте швидкість курсора, прокрутки та чутливість</li>
+                                <li>Налаштуйте функціонування додаткових кнопок</li>
+                                <li>Для тачпаду: Bluetooth і пристрої → Тачпад</li>
+                                <li>Налаштуйте чутливість, жести та варіанти прокрутки</li>
+                                <li>Увімкніть "Запобігати випадковим дотикам під час введення тексту"</li>
+                            </ol>
+                            
+                            <h3 class="text-xl font-medium mt-6 mb-3 text-blue-300">Налаштування клавіатури:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Bluetooth і пристрої → Клавіатура</li>
+                                <li>Налаштуйте швидкість повторення клавіш та затримку перед повторенням</li>
+                                <li>Налаштуйте мови введення: Час і мова → Мова і регіон</li>
+                                <li>Додайте потрібні мови та розкладки клавіатури</li>
+                                <li>Налаштуйте комбінації клавіш для перемикання мов</li>
+                            </ol>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300">Налаштування принтерів і сканерів:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Bluetooth і пристрої → Принтери і сканери</li>
+                                <li>Для додавання нового пристрою натисніть "Додати пристрій"</li>
+                                <li>Windows автоматично знайде пристрої у мережі або підключені через USB</li>
+                                <li>Для налаштування принтера, виберіть його зі списку та натисніть "Керування"</li>
+                                <li>Тут можна налаштувати параметри друку за замовчуванням, переглянути чергу друку та багато іншого</li>
+                                <li>Якщо принтер не виявлено автоматично, натисніть "Потрібний принтер відсутній у списку" та дотримуйтесь інструкцій</li>
+                            </ol>
+                            
+                            <h3 class="text-xl font-medium mt-6 mb-3 text-blue-300">Налаштування дисплеїв:</h3>
+                            <ol class="list-decimal pl-5 space-y-2">
+                                <li>Відкрийте Налаштування → Система → Дисплей</li>
+                                <li>Для кількох моніторів: налаштуйте розташування, вибравши "Визначити" для ідентифікації кожного екрану</li>
+                                <li>Налаштуйте роздільну здатність та масштабування для кожного дисплея</li>
+                                <li>Виберіть режим відображення: дублювати, розширити, показувати тільки на 1 або 2</li>
+                                <li>Налаштуйте частоту оновлення екрану для найкращої плавності (у розділі "Додаткові параметри дисплея")</li>
+                                <li>Активуйте нічне світло для зменшення синього світла у вечірній час</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300">Налаштування Bluetooth-пристроїв:</h3>
+                        <ol class="list-decimal pl-5 space-y-2">
+                            <li>Відкрийте Налаштування → Bluetooth і пристрої</li>
+                            <li>Увімкніть Bluetooth, якщо він вимкнений</li>
+                            <li>Натисніть "Додати пристрій"</li>
+                            <li>Виберіть тип пристрою: Bluetooth, Бездротовий дисплей або док-станція, або інше</li>
+                            <li>Переведіть ваш Bluetooth-пристрій у режим сполучення згідно з інструкцією до нього</li>
+                            <li>Виберіть пристрій у списку знайдених та завершіть процес сполучення</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="tip-box mt-4">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Для спеціалізованих пристроїв (графічні планшети, ігрові контролери, тощо) завжди встановлюйте програмне забезпечення від виробника для доступу до розширених функцій та налаштувань.</p>
+                    </div>
+                </div>
+
+                <!-- Recommended Apps Section -->
+                <div id="recommended" class="win-card mb-8 p-6">
+                    <h2 class="text-2xl font-bold mb-4">Рекомендовані програми для Windows 11</h2>
+                    
+                    <p class="mb-6">
+                        Нижче наведено перелік рекомендованих програм для різних завдань, які добре працюють з Windows 11 
+                        та регулярно оновлюються розробниками.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300 border-b border-gray-700 pb-2">Продуктивність</h3>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Microsoft 365</h4>
+                                <p class="text-sm mb-2">Повний набір офісних програм з хмарною синхронізацією та спільною роботою.</p>
+                                <p class="text-xs text-gray-400">Ключові компоненти: Word, Excel, PowerPoint, Outlook, OneNote</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернатива: LibreOffice (безкоштовно)</p>
+                            </div>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Notion</h4>
+                                <p class="text-sm mb-2">Універсальний інструмент для створення нотаток, бази знань та управління проектами.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Evernote, Microsoft OneNote</p>
+                            </div>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Adobe Acrobat Reader DC</h4>
+                                <p class="text-sm mb-2">Надійний переглядач PDF-файлів з можливостями коментування.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Foxit Reader, SumatraPDF</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-medium mb-3 mt-6 text-blue-300 border-b border-gray-700 pb-2">Безпека</h3>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Bitwarden</h4>
+                                <p class="text-sm mb-2">Надійний менеджер паролів з відкритим кодом та кросплатформною синхронізацією.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: LastPass, 1Password, KeePass</p>
+                            </div>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Malwarebytes</h4>
+                                <p class="text-sm mb-2">Потужний інструмент для виявлення та видалення шкідливого ПЗ.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Bitdefender, Kaspersky</p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3 class="text-xl font-medium mb-3 text-blue-300 border-b border-gray-700 pb-2">Утиліти</h3>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">7-Zip</h4>
+                                <p class="text-sm mb-2">Безкоштовний архіватор з високим ступенем стиснення та підтримкою різних форматів.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: WinRAR, PeaZip</p>
+                            </div>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">ShareX</h4>
+                                <p class="text-sm mb-2">Потужний інструмент для знімків екрану, запису екрану та обміну файлами.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Greenshot, Snagit</p>
+                            </div>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">VLC Media Player</h4>
+                                <p class="text-sm mb-2">Універсальний медіаплеєр, що підтримує практично всі формати аудіо та відео.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: PotPlayer, MPV</p>
+                            </div>
+                            
+                            <h3 class="text-xl font-medium mb-3 mt-6 text-blue-300 border-b border-gray-700 pb-2">Комунікація та розваги</h3>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Telegram Desktop</h4>
+                                <p class="text-sm mb-2">Швидкий та безпечний месенджер з підтримкою каналів та ботів.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Signal, WhatsApp Desktop</p>
+                            </div>
+                            
+                            <div class="program-card p-4 mb-3">
+                                <h4 class="font-bold">Spotify</h4>
+                                <p class="text-sm mb-2">Сервіс потокового аудіо з мільйонами пісень та персоналізованими плейлистами.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Apple Music, YouTube Music</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <h3 class="text-xl font-medium mb-3 text-blue-300 border-b border-gray-700 pb-2">Інструменти для розробників</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="program-card p-4">
+                                <h4 class="font-bold">Visual Studio Code</h4>
+                                <p class="text-sm mb-2">Легкий, але потужний редактор коду з підтримкою багатьох мов та розширень.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: Sublime Text, Atom</p>
+                            </div>
+                            
+                            <div class="program-card p-4">
+                                <h4 class="font-bold">Git for Windows</h4>
+                                <p class="text-sm mb-2">Інструмент для контролю версій з графічним інтерфейсом та інтеграцією в Windows.</p>
+                                <p class="text-xs text-blue-300 mt-1">Альтернативи: GitHub Desktop, GitKraken</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tip-box mt-6">
+                        <h4 class="font-bold">Корисна порада:</h4>
+                        <p>Використовуйте сервіси типу Ninite або Windows Package Manager (winget), щоб автоматизувати встановлення кількох програм одночасно.</p>
+                        <p class="mt-2 text-sm">Приклад команди winget:</p>
+                        <div class="cmd-block mt-2 text-sm">
+                            <p>winget install -e --id Google.Chrome Microsoft.VisualStudioCode VideoLAN.VLC</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Conclusion -->
+                <div class="win-card p-6">
+                    <h2 class="text-2xl font-bold mb-4">Висновок</h2>
+                    <p class="mb-4">
+                        Дотримуючись цієї інструкції, ви можете ефективно налаштувати вашу систему Windows 11, щоб вона відповідала вашим
+                        потребам та забезпечувала оптимальну продуктивність. Регулярне оновлення системи та програм, резервне копіювання даних
+                        та дотримання рекомендацій з безпеки допоможуть підтримувати вашу систему в хорошому стані.
+                    </p>
+                    <p>
+                        Пам'ятайте, що Windows 11 постійно розвивається, і Microsoft регулярно додає нові функції та покращення. Слідкуйте
+                        за оновленнями системи та використовуйте нові можливості для підвищення ефективності вашої роботи з комп'ютером.
+                    </p>
+                </div>
             </div>
-        </section>
-    </main>
-    
-    <script src="./js/instrukciya.js"></script>
+        </div>
+    </div>
+    <script>
+        // Simple script to highlight active section in table of contents
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.win-card[id]');
+            const navLinks = document.querySelectorAll('.toc-link');
+            
+            function setActiveNavLink() {
+                let currentSection = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    const sectionHeight = section.offsetHeight;
+                    
+                    if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                        currentSection = '#' + section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === currentSection) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+            
+            // Add smooth scrolling to nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Call setActiveNavLink on scroll
+            window.addEventListener('scroll', setActiveNavLink);
+            
+            // Call it once to set the active link on page load
+            setActiveNavLink();
+        });
+    </script>
 </body>
-</html> 
+</html>
